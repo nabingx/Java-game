@@ -18,7 +18,7 @@ public class Game extends JFrame{
 
 	public static void main(String[] args) {
 		
-		System.out.println("Start of my TD Tutorial. Hello there");
+		System.out.println("Start of my TD Tutorial. Hello there!");
 		
 		Game game = new Game();
 
