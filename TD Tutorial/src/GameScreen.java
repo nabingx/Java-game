@@ -18,8 +18,8 @@ public class GameScreen extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		
-		g.drawImage(img, 0, 0, null);
+		BufferedImage i = img.getSubimage(32 * 0, 32, 32, 32);
+		g.drawImage(i, 0, 0, null);
 		
 		
 //		for (int y = 0; y < 20; y++) {
