@@ -6,34 +6,38 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-public class Game extends JFrame{
+import inputs.KeyboardListener;
+import inputs.MyMouseListener;
+
+public class Game extends JFrame implements Runnable {
 	
 	private GameScreen gameScreen;
-	
 	private BufferedImage img;
-	private double timePerFrame;
-	private long lastFrame;
+	private Thread gameThread;
 	
-	private double timePerUpdate;
-	private long lastUpdate;
+	private final double FPS_SET = 120.0;
+	private final double UPS_SET = 60.0;
 	
-	private int updates;
-	private long lastTimeUPS;
+	private MyMouseListener myMouseListener;
+	private KeyboardListener keyboardListener;
 	
 	public Game() {
 		
-		timePerFrame = 1000000000.0 / 120.0;
-		timePerUpdate = 1000000000.0 / 60.0;
-		
 		importImg();
 		
-		setSize(640, 640);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
 		gameScreen = new GameScreen(img);
+		
 		add(gameScreen);
+		pack();
+		
 		setVisible(true);
+		
+	}
+	
+	private void initInputs() {
 		
 	}
 
@@ -47,43 +51,65 @@ public class Game extends JFrame{
 		}	
 	}
 	
-	private void loopGame() {
-		while(true) {
-			
-			if (System.nanoTime() - lastUpdate >= timePerUpdate) {
-				updateGame();
-				callUPS();
-			}
-			
-			if (System.nanoTime() - lastFrame >= timePerFrame) {
-				lastFrame = System.nanoTime();
-				repaint();
-			} else {
-				// we do nothing
-			}
-		}
-	}
-
-	private void callUPS() {
+	private void start() {
+		gameThread = new Thread(this) {};
 		
-		if (System.currentTimeMillis() - lastTimeUPS >= 1000) {
-			System.out.println("UPS: " + updates);
-			updates = 0;
-			lastTimeUPS = System.currentTimeMillis();
-		}
+		gameThread.start();
 	}
 
 	private void updateGame() {
-		updates++;
-		lastUpdate = System.nanoTime();
+		
 		//System.out.println("Game Updated!");
 	}
 
 	public static void main(String[] args) {
 		
 		Game game = new Game();
-		game.loopGame();
+		game.start();
 
+	}
+
+	@Override
+	public void run() {
+		
+		double timePerFrame = 1000000000.0 / FPS_SET;
+		double timePerUpdate = 1000000000.0 / UPS_SET;
+		
+		long lastFrame = System.nanoTime();
+		long lastUpdate = System.nanoTime();
+		long lastTimeCheck = System.currentTimeMillis();
+		
+		int frames = 0;
+		int updates = 0;
+		
+		long now;
+		
+		while (true) {
+			
+			now = System.nanoTime();
+			//Render
+			if (now - lastFrame >= timePerFrame) {
+				repaint();
+				lastFrame = now;
+				frames++;
+			}
+			
+			//Update
+			if (now - lastUpdate >= timePerUpdate) {
+				updateGame();
+				lastUpdate = now;
+				updates++;
+			}
+			
+			//Checking FPS and UPS
+			if (System.currentTimeMillis() - lastTimeCheck >= 1000) {
+				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				frames = 0;
+				updates = 0;
+				lastTimeCheck = System.currentTimeMillis();
+			}
+		}
+		
 	}
 
 }
