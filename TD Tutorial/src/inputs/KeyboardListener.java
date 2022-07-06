@@ -13,8 +13,11 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		if (e.getKeyCode() == KeyEvent.VK_A)
+			System.out.println("A is pressed!");
 		
+		else if (e.getKeyCode() == KeyEvent.VK_B)
+			System.out.println("B is pressed!");
 	}
 
 	@Override

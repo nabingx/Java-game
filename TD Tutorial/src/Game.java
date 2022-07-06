@@ -38,6 +38,14 @@ public class Game extends JFrame implements Runnable {
 	}
 	
 	private void initInputs() {
+		myMouseListener = new MyMouseListener();
+		keyboardListener = new KeyboardListener();
+		
+		addMouseListener(myMouseListener);
+		addMouseMotionListener(myMouseListener);
+		addKeyListener(keyboardListener);
+		
+		requestFocus();
 		
 	}
 
@@ -65,6 +73,7 @@ public class Game extends JFrame implements Runnable {
 	public static void main(String[] args) {
 		
 		Game game = new Game();
+		game.initInputs();
 		game.start();
 
 	}
