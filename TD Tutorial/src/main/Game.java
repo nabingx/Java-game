@@ -1,3 +1,4 @@
+package main;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,7 +13,6 @@ import inputs.MyMouseListener;
 public class Game extends JFrame implements Runnable {
 	
 	private GameScreen gameScreen;
-	private BufferedImage img;
 	private Thread gameThread;
 	
 	private final double FPS_SET = 120.0;
@@ -23,12 +23,10 @@ public class Game extends JFrame implements Runnable {
 	
 	public Game() {
 		
-		importImg();
-		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		gameScreen = new GameScreen(img);
+		gameScreen = new GameScreen(this);
 		
 		add(gameScreen);
 		pack();
@@ -47,16 +45,6 @@ public class Game extends JFrame implements Runnable {
 		
 		requestFocus();
 		
-	}
-
-	private void importImg() {
-		InputStream is = getClass().getResourceAsStream("/spriteatlas.png");
-		
-		try {
-			img = ImageIO.read(is);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
 	}
 	
 	private void start() {
