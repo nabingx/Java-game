@@ -10,4 +10,8 @@ public class GameScene {
 		this.game = game;
 	}
 	
+	public Game getGame() {
+		return game;
+	}
+	
 }

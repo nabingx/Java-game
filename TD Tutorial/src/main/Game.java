@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 
 import inputs.KeyboardListener;
 import inputs.MyMouseListener;
+import scenes.Menu;
+import scenes.Playing;
+import scenes.Settings;
 
 public class Game extends JFrame implements Runnable {
 	
@@ -21,12 +24,18 @@ public class Game extends JFrame implements Runnable {
 	private MyMouseListener myMouseListener;
 	private KeyboardListener keyboardListener;
 	
+	//Classes
+	private Render render;
+	private Menu menu;
+	private Playing playing;
+	private Settings settings;
+	
 	public Game() {
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		gameScreen = new GameScreen(this);
+		initClasses();
 		
 		add(gameScreen);
 		pack();
@@ -35,6 +44,14 @@ public class Game extends JFrame implements Runnable {
 		
 	}
 	
+	private void initClasses() {
+		render = new Render(this);
+		gameScreen = new GameScreen(this);
+		menu = new Menu(this);
+		playing = new Playing(this);
+		settings = new Settings(this);
+	}
+
 	private void initInputs() {
 		myMouseListener = new MyMouseListener();
 		keyboardListener = new KeyboardListener();
@@ -107,6 +124,23 @@ public class Game extends JFrame implements Runnable {
 			}
 		}
 		
+	}
+	
+	//Getters and setters
+	public Render getRender() {
+		return render;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public Playing getPlaying() {
+		return playing;
+	}
+
+	public Settings getSettings() {
+		return settings;
 	}
 
 }
