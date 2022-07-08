@@ -14,11 +14,11 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 	public MyMouseListener(Game game) {
 		this.game = game;
 	}
-	
+
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -28,33 +28,38 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			game.getMenu().mouseMoved(e.getX(), e.getY());
 			break;
 		case PLAYING:
+			game.getPlaying().mouseMoved(e.getX(), e.getY());
 			break;
 		case SETTINGS:
+			game.getSettings().mouseMoved(e.getX(), e.getY());
 			break;
 		default:
 			break;
+
 		}
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
-//			System.out.println("Mouse Pos: " + e.getX() + " : " + e.getY());
-			
+
 			switch (GameStates.gameState) {
 			case MENU:
 				game.getMenu().mouseClicked(e.getX(), e.getY());
 				break;
 			case PLAYING:
+				game.getPlaying().mouseClicked(e.getX(), e.getY());
 				break;
 			case SETTINGS:
+				game.getSettings().mouseClicked(e.getX(), e.getY());
 				break;
 			default:
 				break;
+
 			}
-			
+
 		}
-			
 	}
 
 	@Override
@@ -64,12 +69,16 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			game.getMenu().mousePressed(e.getX(), e.getY());
 			break;
 		case PLAYING:
+			game.getPlaying().mousePressed(e.getX(), e.getY());
 			break;
 		case SETTINGS:
+			game.getSettings().mousePressed(e.getX(), e.getY());
 			break;
 		default:
 			break;
+
 		}
+
 	}
 
 	@Override
@@ -79,24 +88,27 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			game.getMenu().mouseReleased(e.getX(), e.getY());
 			break;
 		case PLAYING:
+			game.getPlaying().mouseReleased(e.getX(), e.getY());
 			break;
 		case SETTINGS:
+			game.getSettings().mouseReleased(e.getX(), e.getY());
 			break;
 		default:
 			break;
+
 		}
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
