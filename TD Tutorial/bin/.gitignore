@@ -1,5 +1,6 @@
-/inputs/
-/GameStates.class
-/Render.class
+/helpz/
+/managers/
 /scenes/
+/inputs/
 /main/
+/ui/
