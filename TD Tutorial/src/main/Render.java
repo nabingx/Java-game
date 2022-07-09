@@ -2,7 +2,6 @@ package main;
 
 import java.awt.Graphics;
 
-
 public class Render {
 
 	private Game game;
@@ -21,14 +20,19 @@ public class Render {
 
 			break;
 		case PLAYING:
-			
+
 			game.getPlaying().render(g);
 
 			break;
 		case SETTINGS:
-			
+
 			game.getSettings().render(g);
 
+			break;
+		case EDIT:
+			game.getEditor().render(g);
+			break;
+		default:
 			break;
 
 		}
