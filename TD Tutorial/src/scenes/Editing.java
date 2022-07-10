@@ -1,6 +1,7 @@
 package scenes;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import helpz.LoadSave;
@@ -26,6 +27,7 @@ public class Editing extends GameScene implements SceneMethods {
 	private void loadDefaultLevel() {
 		lvl = LoadSave.GetLevelData("new_level");
 	}
+
 	@Override
 	public void render(Graphics g) {
 
@@ -110,13 +112,14 @@ public class Editing extends GameScene implements SceneMethods {
 
 	@Override
 	public void mousePressed(int x, int y) {
-		// TODO Auto-generated method stub
+		if (y >= 640)
+			toolbar.mousePressed(x, y);
 
 	}
 
 	@Override
 	public void mouseReleased(int x, int y) {
-		// TODO Auto-generated method stub
+		toolbar.mouseReleased(x, y);
 
 	}
 
@@ -128,6 +131,11 @@ public class Editing extends GameScene implements SceneMethods {
 			changeTile(x, y);
 		}
 
+	}
+	
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_R)
+			toolbar.rotateSprite();
 	}
 
 }
